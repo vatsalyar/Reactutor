@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Editor from "@monaco-editor/react";
 import { 
   SandpackLayout, 
@@ -12,44 +12,26 @@ import FeedbackModal from './FeedbackModal';
 
 interface EditorProps {
   sampleCode: string;
-  currentTask: string;
+  currentTask?: string;
 }
 
 const CodeEditor: React.FC<EditorProps> = ({ sampleCode, currentTask }) => {
   const { code, updateCode } = useActiveCode();
   const { sandpack } = useSandpack();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [feedback, setFeedback] = useState<string>("");
+  const [feedback, setFeedback] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   useEffect(() => {
-    try {
-      updateCode(sampleCode);
-    } catch(err) {
-      console.error(err);
-    }
+    updateCode(sampleCode);
   }, []);
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     setIsSubmitting(true);
     try {
-      // const response = await fetch('/api/check-code', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({
-      //     code,
-      //     task: currentTask
-      //   }),
-      // });
-      
-      // const data = await response.json();
-      const data = {
-        feedback: "This is a sample feedback"
-      }
-
-      setFeedback(data.feedback);
+      // Simulated API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setFeedback("This is a sample feedback. Implement your actual API call here.");
       setIsModalOpen(true);
     } catch (error) {
       setFeedback("Error checking code. Please try again.");
@@ -57,44 +39,38 @@ const CodeEditor: React.FC<EditorProps> = ({ sampleCode, currentTask }) => {
       console.error('Error:', error);
     }
     setIsSubmitting(false);
-  };
+  }, []);
 
   return (
     <>
       <SandpackStack className="h-full m-0">
-        <div className="flex flex-col gap-1 m-0 p-0 relative">
+        <div className="flex flex-col gap-1 m-0 p-0 relative h-full">
           <Editor
-            height="350px"
+            height="50vh"
             language="javascript"
             theme="vs-dark"
-            defaultValue={code}
+            value={code}
             key={sandpack.activeFile}
             onChange={(value) => updateCode(value || "")}
             options={{
-              fontSize: 16,
+              fontSize: 14,
               minimap: { enabled: false },
               automaticLayout: true,
+              padding: { top: 16 },
             }}
           />
-          <div className="absolute bottom-4 right-4">
+          <div className="absolute bottom-4 right-4 z-10">
             <button
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className="
-                bg-green-600 
-                hover:bg-green-700 
-                text-white 
-                font-semibold 
-                rounded-lg
-                px-6
-                py-2
-                shadow-md
-                hover:shadow-lg
-                transition-all
-                duration-200
-                disabled:opacity-50
-                disabled:cursor-not-allowed
-              "
+              className={`
+                bg-emerald-600 hover:bg-emerald-700 
+                text-white font-medium 
+                rounded-md px-4 py-2 
+                transition-all duration-200
+                ${isSubmitting ? 'opacity-75 cursor-not-allowed' : ''}
+                shadow-lg hover:shadow-xl
+              `}
             >
               {isSubmitting ? 'Checking...' : 'Check Code'}
             </button>
@@ -110,32 +86,38 @@ const CodeEditor: React.FC<EditorProps> = ({ sampleCode, currentTask }) => {
   );
 }
 
-function Editor1({ currentTask }: { currentTask: string }) {
-  const [initialCode, setInitialCode] = useState<string>(`
+function Editor1({ currentTask }: { currentTask?: string }) {
+  const initialCode = `
 // Write your React code here
 import React from 'react';
 
 export default function App() {
   return (
-    <div>
-      <h1>Hello World</h1>
+    <div className="p-4 text-white">
+      <h1 className="text-2xl font-bold">Start Coding!</h1>
     </div>
   );
 }
-`);
+`.trim();
 
   return (
     <SandpackProvider 
-      template="react" 
+      template="react"
       theme="dark"
       options={{
         autorun: true,
-        recompileMode: "immediate"
+        recompileMode: "immediate",
+        // bundlerURL: "https://cdn.jsdelivr.net/npm/sandpack-react@0.8.0"
+      }}
+      customSetup={{
+        dependencies: {
+          "react-icons": "latest"
+        }
       }}
     >
-      <SandpackLayout className="h-screen">
+      <SandpackLayout className="h-full rounded-lg overflow-hidden">
         <div className="flex flex-col w-full h-full">
-          <div className="h-[350px]">
+          <div className="h-[50vh] border-b border-gray-700">
             <CodeEditor 
               sampleCode={initialCode} 
               currentTask={currentTask}
