@@ -23,7 +23,7 @@ An interactive web application designed to help users learn coding through step-
 
 ## Project Structure
 
-```
+
 
 ## Getting Started
 
