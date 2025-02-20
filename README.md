@@ -21,10 +21,6 @@ An interactive web application designed to help users learn coding through step-
 - **Icons**: React Icons
 - **Code Preview**: Sandpack React Components
 
-## Project Structure
-
-```
-
 ## Getting Started
 
 ### Prerequisites
