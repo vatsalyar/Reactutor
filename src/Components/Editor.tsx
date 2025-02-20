@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Editor from "@monaco-editor/react";
+import { getGroqChatCompletion } from '../services/api';
 import { 
   SandpackLayout, 
   SandpackPreview, 
@@ -9,6 +10,7 @@ import {
   useSandpack 
 } from '@codesandbox/sandpack-react';
 import FeedbackModal from './FeedbackModal';
+import { resolve } from 'path';
 
 interface EditorProps {
   sampleCode: string;
@@ -29,9 +31,9 @@ const CodeEditor: React.FC<EditorProps> = ({ sampleCode, currentTask }) => {
   const handleSubmit = useCallback(async () => {
     setIsSubmitting(true);
     try {
-      // Simulated API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setFeedback("This is a sample feedback. Implement your actual API call here.");
+
+      setFeedback(""); 
+      await new Promise((resolve) => setTimeout(resolve, 1000))
       setIsModalOpen(true);
     } catch (error) {
       setFeedback("Error checking code. Please try again.");

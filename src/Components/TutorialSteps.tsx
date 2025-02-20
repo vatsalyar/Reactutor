@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { db } from "../../firebaseConfig";
+import React from "react";
+import{ useEffect, useState } from "react";
+import { db } from "../../firebaseConfig"
 import { getDocs, collection } from "firebase/firestore";
 import { FaArrowLeft, FaArrowRight,FaChevronDown } from "react-icons/fa";
 

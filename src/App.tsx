@@ -32,8 +32,8 @@ const App: React.FC = () => {
       {/* Right Section - Code Editor */}
       <div className="w-1/2 flex flex-col border-l border-gray-700">
         <div className="p-6 border-b border-gray-700">
-          <h1 className="text-2xl font-bold text-amber-500">
-            Interactive Code Editor
+          <h1 className="text-lg font-semibold text-amber-500">
+            Code Playground
           </h1>
         </div>
         <div className="flex-1 overflow-hidden">
