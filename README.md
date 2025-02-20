@@ -109,7 +109,6 @@ interface Step {
    - Keyboard accessible
 
 
-
 ## Contributing
 
 1. Fork the repository
