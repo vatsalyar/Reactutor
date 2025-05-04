@@ -1,4 +1,4 @@
-# Interactive Coding Tutorial Platform
+# Reactutor
 
 An interactive web application designed to help users learn coding through step-by-step tutorials with real-time feedback from AI. Built with React, TypeScript, and Firebase.
 

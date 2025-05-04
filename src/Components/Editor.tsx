@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Editor from "@monaco-editor/react";
-import { getGroqChatCompletion } from '../services/api';
+// import { getGroqChatCompletion } from '../services/api';
 import { 
   SandpackLayout, 
   SandpackPreview, 
