@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  reactutor:
+    image: reactutor-dev
+    ports:
+      - "8080:8080"
+    deploy:
+      replicas: 1
+    networks:
+      - reactutor-net
+
+networks:
+  reactutor-net:
+    driver: bridge
