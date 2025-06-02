@@ -9,7 +9,7 @@ An interactive web application designed to help users learn React through step-b
 
 ## 🌐 Live Demo
 
-Try it out: [https://reactutor-aws.vatsalya.wiki](https://reactutor-aws.vatsalya.wiki)
+Try it out: [https://reactutor-aws.vatsalya.wiki](https://reactutor.vatsalya.wiki)
 
 ## 📦 Features
 
